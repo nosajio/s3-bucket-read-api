@@ -1,8 +1,8 @@
 # S3 Bucket Read API
 
-A small configurable service written in Go consisting of two endpoints:
+A small configurable service written in Go that can read data from a AWS S3 bucket. The API consists of just two endpoints:
 
-`GET /files` lists all files in the bucket specified in the `` environment variable.  
+`GET /files` lists all files in the bucket specified in the `BUCKET_NAME` environment variable.  
 
 `GET /files/:filename` streams bytes of the specified file to the browser.
 
