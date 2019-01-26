@@ -22,7 +22,7 @@ func main() {
 
 	// Listen on specified port
 	Info.Printf("Server running: http://localhost:%s", listenPort)
-	serverErr := http.ListenAndServe(fmt.Sprintf(":%s", listenPort), router)
+	serverErr := http.ListenAndServe(fmt.Sprintf(":%d", listenPort), router)
 	if serverErr != nil {
 		Error.Fatal(serverErr)
 	}

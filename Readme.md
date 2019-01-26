@@ -10,8 +10,8 @@ A small configurable service written in Go that can read data from a AWS S3 buck
 
 Here's an example of the required environment vars:
 ```shell
-"PORT":                  "8080",
-"AWS_ACCESS_KEY_ID":     "XXXXXXXXXXXX",
-"AWS_SECRET_ACCESS_KEY": "xxxxxxxxxxxxxxxx",
-"BUCKET_NAME":           "my-bucket-name"
+PORT                  = 8080,
+AWS_ACCESS_KEY_ID     = XXXXXXXXXXXX,
+AWS_SECRET_ACCESS_KEY = xxxxxxxxxxxxxxxx,
+BUCKET_NAME           = my-bucket-name
 ```
