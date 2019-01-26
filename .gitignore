@@ -2,4 +2,7 @@
 debug
 build
 .vscode
+/bin
+/vendor
 live-s3-file-api
+.env
