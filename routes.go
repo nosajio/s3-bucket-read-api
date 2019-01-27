@@ -9,7 +9,8 @@ import (
 )
 
 type listResult struct {
-	Filename *string `json:"filename"`
+	Filename string `json:"filename"`
+	URL      string `json:"url"`
 }
 
 // RegisterRoutes will associate api routes with handlers
@@ -28,7 +29,11 @@ func RegisterRoutes(router *chi.Mux, awsSession *s3.S3) {
 		var jsonResults []listResult
 
 		for _, object := range files {
-			jsonResults = append(jsonResults, listResult{Filename: object.Key})
+			filename := *object.Key
+			filePath := RelativeURLPath(fmt.Sprintf("files/%s", filename))
+			fileURL := fmt.Sprintf("://%s", filePath)
+			jsonResults =
+				append(jsonResults, listResult{Filename: filename, URL: fileURL})
 		}
 
 		resJSON, err := json.Marshal(jsonResults)

@@ -15,4 +15,5 @@ AWS_ACCESS_KEY_ID     = XXXXXXXXXXXX,
 AWS_SECRET_ACCESS_KEY = xxxxxxxxxxxxxxxx,
 BUCKET_NAME           = my-bucket-name
 ALLOWED_ORIGINS       = example.com, example2.com
+SELF_HOST             = http://api.example.com
 ```
