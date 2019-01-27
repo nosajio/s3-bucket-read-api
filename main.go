@@ -18,11 +18,12 @@ func main() {
 
 	// Create the router instance
 	router := chi.NewRouter()
+	RegisterMiddleware(router)
 	RegisterRoutes(router, awsSession)
 
 	// Listen on specified port
 	Info.Printf("Server running: http://localhost:%s", listenPort)
-	serverErr := http.ListenAndServe(fmt.Sprintf(":%d", listenPort), router)
+	serverErr := http.ListenAndServe(fmt.Sprintf(":%s", listenPort), router)
 	if serverErr != nil {
 		Error.Fatal(serverErr)
 	}
