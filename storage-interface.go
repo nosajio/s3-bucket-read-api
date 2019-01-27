@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -37,21 +38,24 @@ func ListFilesForBucket(
 func GetObjectBytes(
 	s *s3.S3,
 	bucketName string,
-	filename string) []byte {
+	filename string) (string, []byte) {
 	input := &s3.GetObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(filename),
 	}
 	result, err := s.GetObject(input)
 	if err != nil {
+		Error.Println(fmt.Sprintf("filekey: %s", *aws.String(filename)))
 		Error.Println(err)
-		return nil
+		return "", nil
 	}
 	defer result.Body.Close()
 	buffer := bytes.NewBuffer(nil)
+	contentType := *result.ContentType
 	if _, err := io.Copy(buffer, result.Body); err != nil {
 		Error.Println(err)
-		return nil
+		return contentType, nil
 	}
-	return buffer.Bytes()
+
+	return contentType, buffer.Bytes()
 }

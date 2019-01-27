@@ -31,7 +31,7 @@ func RegisterRoutes(router *chi.Mux, awsSession *s3.S3) {
 		for _, object := range files {
 			filename := *object.Key
 			filePath := RelativeURLPath(fmt.Sprintf("files/%s", filename))
-			fileURL := fmt.Sprintf("://%s", filePath)
+			fileURL := fmt.Sprintf("//%s", filePath)
 			jsonResults =
 				append(jsonResults, listResult{Filename: filename, URL: fileURL})
 		}
@@ -46,7 +46,9 @@ func RegisterRoutes(router *chi.Mux, awsSession *s3.S3) {
 
 	router.Get("/files/{filename}", func(res http.ResponseWriter, req *http.Request) {
 		filename := chi.URLParam(req, "filename")
-		res.Write(GetObjectBytes(awsSession, bucketName, filename))
+		contentType, objectBytes := GetObjectBytes(awsSession, bucketName, filename)
+		res.Header().Add("Content-Type", contentType)
+		res.Write(objectBytes)
 	})
 
 }
